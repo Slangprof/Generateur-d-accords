@@ -2,7 +2,6 @@
 (() => {
   const stringGap = 3.63;
   const fretGap = 4.057;
-  
   const glyphs = window.BOOGALOO_GLYPHS;
   const number = value => Number(value.toFixed(4));
   const glyphText = label => label.replaceAll('♭', 'b').replaceAll('♯', '#');
@@ -48,7 +47,7 @@
     const gridHeight = 15.5816 + headroom;
     const height = gridHeight + (notes.length ? 5 : name.includes('j') ? 2 : 0);
     const marker = start > 1 ? String(start) : '';
-    const left = textWidth(name, 13) + Math.max(2.6, textWidth(marker, 4.2) + 1);
+    const left = textWidth(name, 13) + Math.max(2.6, textWidth(marker, 4.2) + .56);
     const right = left + (absolute.length - 1) * stringGap;
     const bottom = gridTop + rows * fretGap;
     const shapes = [text(name, .48, gridHeight - 1.6, 13)];
