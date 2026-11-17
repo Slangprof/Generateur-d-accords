@@ -54,7 +54,7 @@
     const line = (x1, y1, x2, y2) => shapes.push({path: [['M',x1,y1],['L',x2,y2]], stroke: .22});
     absolute.forEach((_, i) => line(left+i*stringGap,gridTop,left+i*stringGap,bottom));
     for (let row = 0; row <= rows; row++) line(left,gridTop+row*fretGap,right,gridTop+row*fretGap);
-    shapes.push(capsule(left+.34,gridTop-.555,right-left-.68,.535,.33,.22));
+    shapes.push(capsule(left+.34,gridTop-.34,right-left-.68,.32,.33,.22));
     if (marker) shapes.push(text(marker,left-.56-textWidth(marker,4.2),gridTop+2.15,4.2));
     const covered = new Set();
     for (const barre of position.barres || []) {
