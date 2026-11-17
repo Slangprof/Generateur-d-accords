@@ -31,16 +31,21 @@
       ['C', x-radius,y-k,x-k,y-radius,x,y-radius], ['Z']
     ] };
   }
+  function fits(position) {
+    const pressed = position.frets.filter(fret => fret > 0);
+    return !pressed.length || Math.max(...pressed) - Math.min(...pressed) <= 2;
+  }
   function create(label, position, notes = []) {
+    if (!fits(position)) throw new Error('Le doigté dépasse trois cases.');
     const name = glyphText(label);
     const absolute = position.frets.map(fret => fret > 0 ? fret + (position.baseFret || 1) - 1 : fret);
     const played = absolute.filter(fret => fret > 0);
     const highest = Math.max(0, ...played);
     const start = highest > 3 ? Math.min(...played) : 1;
-    const rows = Math.max(3, highest - start + 1);
+    const rows = 3;
     const headroom = absolute.includes(-1) ? 3 : 0;
     const gridTop = 2.2 + headroom;
-    const gridHeight = 15.5816 + (rows - 3) * fretGap + headroom;
+    const gridHeight = 15.5816 + headroom;
     const height = gridHeight + (notes.length ? 5 : name.includes('j') ? 2 : 0);
     const marker = start > 1 ? String(start) : '';
     const left = textWidth(name, 13) + Math.max(2.6, textWidth(marker, 4.2) + 1);
@@ -110,5 +115,5 @@
     for (const offset of offsets) result+=String(offset).padStart(10,'0')+' 00000 n \n';
     return result+`trailer\n<< /Size ${objects.length+1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
   }
-  window.PartitionDiagram = {create, svg, pdf};
+  window.PartitionDiagram = {create, svg, pdf, fits};
 })();
